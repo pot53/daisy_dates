@@ -180,11 +180,11 @@
 <div class="card topbar">
   <div class="field">
     <label for="off-start">Starting date</label>
-    <input id="off-start" class="date-in" placeholder="mm/dd/yyyy" inputmode="numeric">
+    <input id="off-start" class="date-in" placeholder="mmddyyyy" maxlength="8" inputmode="numeric">
   </div>
   <div class="field">
     <label for="off-end">End date</label>
-    <input id="off-end" class="date-in" placeholder="mm/dd/yyyy" inputmode="numeric">
+    <input id="off-end" class="date-in" placeholder="mmddyyyy" maxlength="8" inputmode="numeric">
   </div>
   <div class="equals">=</div>
   <div class="field">
@@ -209,11 +209,11 @@
     <h2>Know how much time between:</h2>
     <div class="field">
       <label for="btw-d1">Date 1</label>
-      <input id="btw-d1" class="date-in" placeholder="mm/dd/yyyy" inputmode="numeric">
+      <input id="btw-d1" class="date-in" placeholder="mmddyyyy" maxlength="8" inputmode="numeric">
     </div>
     <div class="field">
       <label for="btw-d2">Date 2</label>
-      <input id="btw-d2" class="date-in" placeholder="mm/dd/yyyy" inputmode="numeric">
+      <input id="btw-d2" class="date-in" placeholder="mmddyyyy" maxlength="8" inputmode="numeric">
     </div>
     <div class="equals">=</div>
     <div class="field">
@@ -236,7 +236,7 @@
     <h2>What date will it be:</h2>
     <div class="field">
       <label for="fut-d1">Date 1</label>
-      <input id="fut-d1" class="date-in" placeholder="mm/dd/yyyy" inputmode="numeric">
+      <input id="fut-d1" class="date-in" placeholder="mmddyyyy" maxlength="8" inputmode="numeric">
     </div>
     <div class="field">
       <label for="fut-days">Number of days</label>
@@ -258,7 +258,7 @@
   </div>
 </div>
 
-<p class="note">Empty dates default to today &middot; empty numbers default to 0 &middot; months = 30 days &middot; years follow the calendar from the anchor date (366 days when a Feb&nbsp;29 is crossed) &middot; both bottom results subtract the time-off total.</p>
+<p class="note">Enter dates as <strong>mmddyyyy</strong> (e.g. 08052026) &middot; results show as mm/dd/yyyy &middot; empty dates default to today &middot; empty numbers default to 0 &middot; months = 30 days &middot; years follow the calendar from the anchor date (366 days when a Feb&nbsp;29 is crossed) &middot; both bottom results subtract the time-off total.</p>
 
 <script>
 (function(){
@@ -289,9 +289,9 @@
     return t.getUTCFullYear() === y && t.getUTCMonth() === m-1 && t.getUTCDate() === d;
   }
 
-  // mm/dd/yyyy (lenient on leading zeros). Returns {y,m,d} or null.
+  // Input: mmddyyyy (8 digits, no separators). Returns {y,m,d} or null.
   function parseDate(str){
-    const m = /^\s*(\d{1,2})\/(\d{1,2})\/(\d{4})\s*$/.exec(str);
+    const m = /^\s*(\d{2})(\d{2})(\d{4})\s*$/.exec(str);
     if(!m) return null;
     const mo = +m[1], da = +m[2], yr = +m[3];
     return isValidYMD(yr, mo, da) ? {y:yr, m:mo, d:da} : null;
